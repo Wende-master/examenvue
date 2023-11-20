@@ -17,19 +17,19 @@
         </li>  -->
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-           Series
+           Marcas
           </a>
           <ul class="dropdown-menu">
             <li >
-                <router-link to="/" class="dropdown-item" >
-                    Home
+                <router-link :to="'/detallescubo/'" class="dropdown-item" >
+                    
                 </router-link>
             </li>
-            <!-- <li v-for="serie in series" :key="serie">
-                <router-link class="dropdown-item" :to="'/detalles/'+ serie.idSerie">
-                    {{serie.nombre}}
+            <li v-for="marca in marcas" :key="marca">
+                <router-link class="dropdown-item" :to="'/detallescubo/'+ marca">
+                    {{marca}}
                 </router-link> 
-                </li> -->
+                </li>
           </ul>
         </li>
       </ul>
@@ -39,20 +39,44 @@
 </template>
 
 <script>
+import Service from '@/services/Service';
+const service = new Service();
+
 export default {
     name: "MenuComponent",
     data(){
         return {
+          marcas: [],
 
         }
     },
 
-    mounted(){
+   watch: {
+    "$route.params.marca"(nextVal, oldVal) {
+      if (nextVal != oldVal) {
+        this.loadMarcas();
+        
+      }
+    },
+  },
 
+    mounted(){
+      this.loadMarcas();
     },
 
     methods:{
-        
+        loadMarcas(){
+       var marca = this.$route.params.marca;
+       //console.log("MARCA "+marca);
+       service.getMarcasCubo(marca).then(result =>{
+        this.marcas= result.data;
+
+       })
+          // service.getMarcasCubo().then(result =>{
+          //   console.log(result.data)
+          //   this.marcas= result.data;
+          // })
+        }
     }
 }
 </script>

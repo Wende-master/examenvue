@@ -1,25 +1,15 @@
 <template>
   <div class="container">
-    <h1>Comprando ...</h1>
+    Comentarios
 
-    
   </div>
 </template>
 
 <script>
-
 export default {
-name: "CreateComponent",
+    name:"ComentariosComponent",
 
-data() {
-  return {
-
-  }
-},
-methods: {
-  
-}
-
+    
 }
 </script>
 
